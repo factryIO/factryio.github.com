@@ -1,246 +1,471 @@
-<!DOCTYPE html>
 <html>
 
 <head>
-	<title>FACTRY - Open Manufacturing Intelligence</title>
-	<meta name="description" content="We help our customers gain insight into their industrial processes by intelligently combining advanced technologies from the web- and IoT-space">
 
-	<!-- Favicon -->
-	<link rel="icon" type="image/x-icon" href="favicon.png" />
+  <title>Factry</title>
 
-	<!--Import Fonts-->
-	<link href="http://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
-	<link href="https://fonts.googleapis.com/css?family=Montserrat:700|Open+Sans" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.3.1/css/bulma.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css">
 
-	<!--Import materialize.css-->
-	<link type="text/css" rel="stylesheet" href="css/materialize.min.css" media="screen,projection" />
+  <style type="text/css">
+    .is-main-hero-image {
+      background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url("img/img1.jpg");
+      background-size: cover;
+      background-position: bottom;
+    }
 
-	<!--Let browser know website is optimized for mobile-->
-	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    .is-platform-hero-image {
+      background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url("img/img2.jpg");
+      background-size: cover;
+      background-position: bottom;
+    }
 
-	<!-- Some extra styles -->
-	<style type="text/css">
-		html {
-			font-family: 'Open Sans', sans-serif;
-			color: #333333;
-		}
+    .is-services-hero-image {
+      background-image: linear-gradient( rgba(255, 255, 255, 0.65), rgba(255, 255, 255, 0.65)), url("img/img3.jpg");
+      background-size: cover;
+      background-position: bottom;
+    }
+  </style>
 
-		h1,
-		h4 {
-			font-family: 'Montserrat', sans-serif;
-			font-weight: 700;
-		}
+  <script type="text/javascript">
+    var handleForm = function() {
+      // hide send, error, enable progress bar and sending msg
+      $("#contact_error").css("display", "none");
+      $("#contact_submit").addClass("is-loading");
 
-		.grad {
-			background: rgba(26, 188, 156, 1);
-			background: -moz-linear-gradient(left, rgba(26, 188, 156, 1) 0%, rgba(46, 204, 113, 1) 50%, rgba(52, 152, 219, 1) 100%);
-			background: -webkit-gradient(left top, right top, color-stop(0%, rgba(26, 188, 156, 1)), color-stop(50%, rgba(46, 204, 113, 1)), color-stop(100%, rgba(52, 152, 219, 1)));
-			background: -webkit-linear-gradient(left, rgba(26, 188, 156, 1) 0%, rgba(46, 204, 113, 1) 50%, rgba(52, 152, 219, 1) 100%);
-			background: -o-linear-gradient(left, rgba(26, 188, 156, 1) 0%, rgba(46, 204, 113, 1) 50%, rgba(52, 152, 219, 1) 100%);
-			background: -ms-linear-gradient(left, rgba(26, 188, 156, 1) 0%, rgba(46, 204, 113, 1) 50%, rgba(52, 152, 219, 1) 100%);
-			background: linear-gradient(to right, rgba(26, 188, 156, 1) 0%, rgba(46, 204, 113, 1) 50%, rgba(52, 152, 219, 1) 100%);
-			filter: progid: DXImageTransform.Microsoft.gradient( startColorstr='#1abc9c', endColorstr='#3498db', GradientType=1);
-		}
-	</style>
+      // construct formspree url
+      url = [];
+      url.push("http://fosdrmspree.io/");
+      url.push("info");
+      url.push("@");
+      url.push("factry.io");
 
-	<!-- The form handling code -->
-	<script type="text/javascript">
-		var handleForm = function() {
-			// hide send, error, enable progress bar and sending msg
-			$("#contact_error").css("display", "none");
-			$("#contact_submit").css("display", "none");
-			$("#contact_progress").css("display", "block");
-			$("#contact_sending").css("display", "block");
+      // get form values
+      var data = {
+        name: $("#name").val(),
+        phone: $("#phone").val(),
+        email: $("#email").val(),
+        message: $("#message").val(),
+        _gotcha: $("_gotcha").val()
+      }
 
-			// construct formspree url
-			url = [];
-			url.push("http://formspree.io/");
-			url.push("info");
-			url.push("@");
-			url.push("factry.io");
-
-			// get form values
-			var data = {
-				name: $("#name").val(),
-				phone: $("#phone").val(),
-				email: $("#email").val(),
-				message: $("#message").val(),
-				_gotcha: $("_gotcha").val()
-			}
-
-			// post the data to formspree
-			$.ajax({
-				url: url.join(""),
-				method: "POST",
-				data: data,
-				dataType: "json",
-				success: function() {
-					// hide progress and sendig msg, show success
-					$("#contact_progress").css("display", "none");
-					$("#contact_sending").css("display", "none");
-					$("#contact_success").css("display", "block");
-				},
-				error: function() {
-					// hide progress and sendig msg, show error and form
-					$("#contact_progress").css("display", "none");
-					$("#contact_sending").css("display", "none");
-					$("#contact_error").css("display", "block");
-					$("#contact_submit").css("display", "block");
-				}
-			});
-			return false;
-		}
-	</script>
+      // post the data to formspree
+      $.ajax({
+        url: url.join(""),
+        method: "POST",
+        data: data,
+        dataType: "json",
+        success: function() {
+          // hide progress and sendig msg, show success
+          $("#contact_submit").removeClass("is-loading").addClass("is-disabled");
+          $("#contact_success").css("display", "block");
+        },
+        error: function() {
+          // hide progress and sendig msg, show error and form
+          $("#contact_submit").removeClass("is-loading")
+          $("#contact_error").css("display", "block");
+        }
+      });
+      return false;
+    }
+  </script>
 
 </head>
 
 <body>
-	<!--Import jQuery before materialize.js-->
-	<script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
-	<script type="text/javascript" src="js/materialize.min.js"></script>
 
-	<!-- This is where we begin!-->
-	<div class="grad" style="height:5px; position:fixed; width: 100vw"></div>
-	<div class="container " style="height:100vh;">
-		<div class=" valign-wrapper" style="height:100%">
-			<div class="row" style="width:100%; margin-left:0; margin-right:0;">
-				<div class="col s8 offset-s2 m4 offset-m4 center-align">
-					<img class="responsive-img" style="margin:auto; padding:25px;" src="img/logo.png">
-				</div>
-				<div class="col s12 center-align">
-					<h1>FACTRY</h1>
-					<h5>Open Manufacturing Intelligence</h5>
-				</div>
-			</div>
-		</div>
-	</div>
+  <!-- JQuery -->
+  <script type="text/javascript" src="https://code.jquery.com/jquery-2.1.1.min.js"></script>
 
-	<!-- The priciples -->
-	<div class="container">
-		<div class="row">
-			<div class="col s12 m12 l12">
-				<h2 class="center-align">Open Process Historian</h4>
-				<p class="center-align">Operational excellence requires an optimal understanding of your production processes. The Factry Open Process Historian allows you to consult the real-time and historical values of thousands of metrics across your production facilities, so you can drive your continuous improvements with deeper insight.
-					<br/>
-				</p>
-			</div>
-		</div>
-		<div class="row">
-			<div class="col s12 m6 l6">
-				<h5 class="center-align">Open (Source)</h5>
-				<p class="center-align">The Factry Open Process Historian is powered by high quality open source technologies, which we augmented with industry-specific functionality. This results in a fast, modern and cost-effective solution.
-				</p>
-			</div>
-			<div class="col s12 m6 l6">
-				<h5 class="center-align">Up and running in no time</h5>
-				<p class="center-align">By using OPC-UA (Unified Architecture), the successor of the highly successful OPC communication protocol, it is possible to collect data from your existing installations no matter the brand of PLC.
-				</p>
-			</div>
-			<div class="col s12 m6 l6">
-				<h5 class="center-align">Easy Integration</h5>
-				<p class="center-align">Our open APIs allow for easy integration with nearly any other software. You can build new applications on top of the Factry Open Process Historian, or easily connect it to your existing applications. 
-				</p>
-			</div>
-			<div class="col s12 m6 l6">
-				<h5 class="center-align">Best-in-class visualization</h5>
-				<p class="center-align">Requiring nothing more than a web browser, our system allows you to create both historical trends for ad-hoc analysis and real-time dashboards for use throughout your factories. As there is no limit on the amount of users, you can display your data on
-					as many screens as you want. </p>
-			</div>
-		</div>
-	</div>
+  <section class="hero is-medium is-bold">
+    <div class="hero-head">
+      <nav class="nav has-shadow">
+        <div class="container">
+          <div class="nav-left">
+            <a class="nav-item">
+              <img src="img/logo_with_name.png" alt="Factry logo">
+            </a>
+          </div>
+          <div class="nav-right nav-menu">
+            <span class="nav-item">
+              <a class="nav-item is-active">Home</a>
+              <a class="nav-item" href="#platform">Platform</a>
+              <a class="nav-item" href="#services">Services</a>
+              <a class="nav-item" href="#contact">Contact Us</a>
+            </span>
+          </div>
+        </div>
+      </nav>
+    </div>
+    <div class="hero-body is-main-hero-image has-text-centered">
+      <div class="container">
+        <h1 class="title is-1">
+        Hi! We are Factry.
+      </h1>
+        <h2 class="subtitle">
+        Let's talk about manufacturing intelligence.
+      </h2>
+      </div>
+    </div>
+  </section>
 
-	<!-- The mission -->
-	<div class="container">
-		<h4 class="center-align">Who are we?</h4>
-		<p class="center-align">Factry is a Belgian engineering company that brings the power of open software to the world of manufacturing intelligence. We help our customers gain insight into their industrial processes by intelligently combining advanced technologies from the web- and IoT-space. Together with our transparent approach, this guarantees modern and performant solutions without artificial limits. We provide you with maximal freedom, now and in the future.
-			<br/>
-			<br/>
-			<br/>
-			<br/>
-		</p>
-	</div>
+  <section class="section">
+    <div class="container">
+      <div>
+        <p>
+          Operational excellence and continuous improvement are driven by an optimal understanding of your production processes. Gaining the necessary insights in process parameters and production events is crucial to this understanding. However, getting to this
+          level of insight is one of the biggest challenges that many production companies are facing today. Different equipments (ranging from very old to brand new) from different vendors are producing data at high rates, but in many cases this data
+          is either not collected or collected locally without any further context. At Factry, we are convinced this is insufficient for an optimal understanding to make the right decisions.
+        </p>
+      </div>
+    </div>
+  </section>
 
-	<!-- The contact form -->
-	<div class="container">
+  <!-- The Our Platform section -->
+  <section id="platform" class="hero is-platform-hero-image is-bold">
+    <div class="hero-body has-text-centered">
+      <div class="container">
+        <h1 class="title is-1">
+          Our platform
+        </h1>
+        <h2 class="subtitle">
+          Factry Hub
+        </h2>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <p>
+        With the Factry Hub, you get insight out-of-the-box. We collect data from different sources (PLC, SCADA, LIMS, MES, ERP) and present it with the right context. Now, everyone in your company - from operator to plant manager - gets the answers they need.
+      </p>
+      <br />
+      <div class="columns">
+        <div class="column">
+          <h4 class="title is-4">Anywhere, any device</h4>
+          <p>
+            Requiring nothing more than a web browser, our system allows you to create both historical trends for ad-hoc analysis and real-time dashboards for use throughout your factories. As there is no limit on the amount of users, you can display your data on
+            as many screens as you want.
+          </p>
+        </div>
+        <div class="column">
+          <h4 class="title is-4">Up and running in no time</h4>
+          <p>
+            By using OPC-UA (Unified Architecture), the successor of the highly successful OPC communication protocol, it is possible to collect data from your existing installations, no matter the brand of PLC, without any custom programming.
+          </p>
+        </div>
+        <div class="column">
+          <h4 class="title is-4">Easy Integration</h4>
+          <p>
+            Our open APIs allow for easy integration with nearly any other software. You can build new applications on top of the Factry Hub and easily connect it to your existing applications.
+          </p>
+        </div>
+        <div class="column">
+          <h4 class="title is-4">Open (Source)</h4>
+          <p>
+            The Factry Hub is powered by high quality open source technologies, which we augmented with industry-specific functionality. This results in a fast, modern and cost-effective solution.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-		<form class="row" onsubmit="javascript:return handleForm()">
+  <!-- The Our Services section -->
+  <section id="services" class="hero is-services-hero-image is-bold">
+    <div class="hero-body has-text-centered">
+      <div class="container">
+        <h1 class="title is-1">
+          Our services
+        </h1>
+      </div>
+    </div>
+  </section>
 
-			<div class="col s12 center-align">
-				<h4>Get in touch!</h4>
-				<p class="center-align">If you want more information, please fill in the form below and we'll get in touch!</p>
-			</div>
-			<div class="col s12">
-				<div id="contact_progress" class="row" style="display:none">
-					<div class="progress">
-						<div class="indeterminate"></div>
-					</div>
-				</div>
-				<div id="contact_sending" class="row" style="display:none">
-					<div class="card-panel teal lighten-5">Sending message...</div>
-				</div>
-				<div id="contact_success" class="row" style="display:none">
-					<div class="card-panel teal lighten-2">Thanks for your message! We will contact you ASAP.</div>
-				</div>
-				<div id="contact_error" class="row" style="display:none">
-					<div class="card-panel red lighten-2">Oops! Something went wrong. Please try again, or contact us at a later time.</div>
-				</div>
-			</div>
-			<div class="col s12 l5">
-				<div class="row">
-					<div class="input-field">
-						<input id="name" type="text" class="validate" required>
-						<label for="name">Name</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field">
-						<input id="phone" type="text" class="validate">
-						<label for="phone">Phone</label>
-					</div>
-				</div>
-				<div class="row">
-					<div class="input-field">
-						<input id="email" type="email" class="validate" required>
-						<label for="email">Email</label>
-						<input type="text" id="_gotcha" style="display:none" />
-					</div>
-				</div>
-			</div>
+  <!-- The about us section -->
+  <section id="about" class="section">
+    <div class="container">
+      <p>
+        Factry is a Belgian engineering company that brings the power of open software to the world of manufacturing intelligence. We help our customers gain insight into their industrial processes by intelligently combining advanced technologies from the web-
+        and IoT-space. Together with our transparent approach, this guarantees modern and performant solutions without artificial limits. We provide you with maximal freedom, now and in the future.
+      </p>
+      <br />
+      <div class="columns">
+        <div class="column">
+          <h4 class="title is-4">Advice</h4>
+          <p>
+            Whether you need a first or a second opinion, we can help you in making the right choices for a specific projects or for your industrial software architecture in general.
+          </p>
+        </div>
+        <div class="column">
+          <h4 class="title is-4">Services</h4>
+          <p>
+            The Factry Hub is offered as a PaaS (Platform as a Service). This means you get installation, updates and support for a fixed monthly fee.
+          </p>
+        </div>
+        <div class="column">
+          <h4 class="title is-4">Engineering</h4>
+          <p>
+            A custom integration? A specific reporting requirement? We'd be happy to help.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
 
-			<div class="col s12 l6 offset-l1">
-				<div class="row">
-					<div class="input-field">
-						<textarea id="message" class="materialize-textarea" style="" required></textarea>
-						<label for="message">Your message</label>
-					</div>
-				</div>
-				<div id="contact_submit" class="row">
-					<button class="btn waves-effect waves-light" type="submit" name="action">
-						Send
-						<i class="material-icons right">send</i>
-					</button>
-				</div>
-			</div>
-		</form>
-	</div>
+  <!-- The Contact us section -->
+  <section id="contact" class="hero is-main-hero-image">
+    <div class="hero-body has-text-centered">
+      <div class="container">
+        <h1 class="title is-1">
+          Interested? Get in touch!
+        </h1>
+      </div>
+    </div>
+  </section>
+  <section class="section">
+    <div class="container">
+      <div class="columns">
+        <div class="column">
+          <h1 class="title">Send us a message</h1>
+          <form onsubmit="javascript:return handleForm()">
+            <p class="control has-icon">
+              <input id="name" class="input" type="text" placeholder="Name" required>
+              <span class="icon is-small">
+                <i class="fa fa-user"></i>
+              </span>
+            </p>
+            <p class="control has-icon">
+              <input id="phone" class="input" type="text" placeholder="Phone">
+              <span class="icon is-small">
+                <i class="fa fa-phone"></i>
+              </span>
+            </p>
+            <p class="control" style="display: none;">
+              <input id="_gotcha" class="input" type="text">
+            </p>
+            <p class="control has-icon">
+              <input id="email" class="input" type="email" placeholder="Email" required>
+              <span class="icon is-small">
+                <i class="fa fa-envelope"></i>
+              </span>
+            </p>
+            <p class="control">
+              <textarea id="message" class="textarea" placeholder="Your message" required></textarea>
+            </p>
+            <div class="columns">
+              <div class="column is-narrow">
+                <p class="control">
+                  <button id="contact_submit" class="button is-primary is-outlined" type="submit">
+                    <span class="icon is-small">
+                      <i class="fa fa-paper-plane"></i>
+                    </span>
+                    <span>Send</span>
+                  </button>
+                </p>
+              </div>
+              <div id="contact_error" class="column" style="display: none;">
+                <article class="message is-danger">
+                  <div class="message-body">
+                    Houston, we have a problem. Please try again, or contact us at a later time.
+                  </div>
+                </article>
+              </div>
+              <div id="contact_success" class="column" style="display: none;">
+                <article class="message is-success">
+                  <div class="message-body">
+                    Thanks for your message! We will contact you as soon as possible.
+                  </div>
+                </article>
+              </div>
+            </div>
+          </form>
+        </div>
+        <div class="column is-1">
+          <!--spacer column-->
+        </div>
+        <div class="column is-narrow">
+          <h1 class="title">
+            Our offices
+          </h1>
+          <div class="columns is-mobile">
+            <div class="column is-narrow">
+              <span class="icon is-large">
+                <i class="fa fa-map-marker"></i>
+              </span>
+            </div>
+            <div class="column">
+              <h4 class="title is-4">
+                Oktrooiplein 1 <br / />
+                9000 Ghent<br / />
+                BELGIUM
+              </h4>
+            </div>
+          </div>
+        </div>
+        <div class="column is-1">
+          <!--spacer column-->
+        </div>
+      </div>
+    </div>
+  </section>
 
-	<!-- Google Analytics -->
-	<script>
-		(function(i, s, o, g, r, a, m) {
-			i['GoogleAnalyticsObject'] = r;
-			i[r] = i[r] || function() {
-				(i[r].q = i[r].q || []).push(arguments)
-			}, i[r].l = 1 * new Date();
-			a = s.createElement(o),
-				m = s.getElementsByTagName(o)[0];
-			a.async = 1;
-			a.src = g;
-			m.parentNode.insertBefore(a, m)
-		})(window, document, 'script', 'https://www.google-analytics.com/analytics.js', 'ga');
 
-		ga('create', 'UA-81483531-1', 'auto');
-		ga('send', 'pageview');
-	</script>
+  <!-- The google maps hero -->
+  <section class="hero is-medium">
+    <div id="map" class="hero-body">
+    </div>
+    <script>
+      function initMap() {
+        var factry = {
+          lat: 51.057478,
+          lng: 3.7396493
+        };
+        var map = new google.maps.Map(document.getElementById('map'), {
+          zoom: 14,
+          center: factry,
+          disableDefaultUI: true,
+          zoomControl: true,
+          fullscreenControl: true,
+          styles: [{
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#f5f5f5"
+              }]
+            },
+            {
+              "elementType": "labels.icon",
+              "stylers": [{
+                "visibility": "off"
+              }]
+            },
+            {
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#616161"
+              }]
+            },
+            {
+              "elementType": "labels.text.stroke",
+              "stylers": [{
+                "color": "#f5f5f5"
+              }]
+            },
+            {
+              "featureType": "administrative.land_parcel",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#bdbdbd"
+              }]
+            },
+            {
+              "featureType": "poi",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#eeeeee"
+              }]
+            },
+            {
+              "featureType": "poi",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#757575"
+              }]
+            },
+            {
+              "featureType": "poi.park",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#e5e5e5"
+              }]
+            },
+            {
+              "featureType": "poi.park",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#9e9e9e"
+              }]
+            },
+            {
+              "featureType": "road",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#ffffff"
+              }]
+            },
+            {
+              "featureType": "road.arterial",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#757575"
+              }]
+            },
+            {
+              "featureType": "road.highway",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#dadada"
+              }]
+            },
+            {
+              "featureType": "road.highway",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#616161"
+              }]
+            },
+            {
+              "featureType": "road.local",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#9e9e9e"
+              }]
+            },
+            {
+              "featureType": "transit.line",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#e5e5e5"
+              }]
+            },
+            {
+              "featureType": "transit.station",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#eeeeee"
+              }]
+            },
+            {
+              "featureType": "water",
+              "elementType": "geometry",
+              "stylers": [{
+                "color": "#c9c9c9"
+              }]
+            },
+            {
+              "featureType": "water",
+              "elementType": "labels.text.fill",
+              "stylers": [{
+                "color": "#9e9e9e"
+              }]
+            }
+          ]
+        });
+        var marker = new google.maps.Marker({
+          position: factry,
+          map: map
+        });
+      }
+    </script>
+    <script async defer src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBFMEMEYMfmsPPNGTOYizQ6KgAYrkMz4mk&callback=initMap">
+    </script>
+  </section>
+
+  <!-- The footer -->
+  <footer class="footer">
+    <div class="container has-text-centered">
+      Copyright 2017 by Factry bvba - All rights reserved.
+    </div>
+  </footer>
 </body>
 
 </html>
